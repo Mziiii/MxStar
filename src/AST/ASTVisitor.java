@@ -1,8 +1,9 @@
 package AST;
 
-import AST.Program.*;
-import AST.Expr.*;
+import AST.Def.*;
 import AST.Stmt.*;
+import AST.Type.*;
+import AST.Expr.*;
 
 public interface ASTVisitor {
     //Program
@@ -64,4 +65,7 @@ public interface ASTVisitor {
 
     void visit(WhileStmt node);
 
+    void visit(Type node);
+
+    void visit(Stmt node);
 }
