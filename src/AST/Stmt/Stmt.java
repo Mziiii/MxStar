@@ -1,17 +1,13 @@
-package AST.Def;
+package AST.Stmt;
 
 import AST.ASTNode;
 import AST.ASTVisitor;
 import Util.Position;
 
-public class Def extends ASTNode {
-    public String identifier;
-
-    public Def(String _identifier, Position pos) {
+public class Stmt extends ASTNode {
+    public Stmt(Position pos){
         super(pos);
-        identifier = _identifier;
     }
-
     @Override
     public void accept(ASTVisitor visitor) {
         visitor.visit(this);

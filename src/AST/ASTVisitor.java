@@ -5,40 +5,41 @@ import AST.Stmt.*;
 import AST.Type.*;
 import AST.Expr.*;
 
+import java.util.ArrayList;
+import java.util.function.IntConsumer;
+
 public interface ASTVisitor {
-    //Program
+    //Def
     void visit(Root root);
 
     void visit(ClassDef node);
 
-    void visit(FunDef node);
-
-    void visit(TypeNode node);
+    void visit(FuncDef node);
 
     //Expr
     void visit(AssignExpr node);
 
     void visit(BinaryExpr node);
 
-    void visit(BoolLiteralExpr node);
+    void visit(BoolConstExpr node);
 
-    void visit(FunctionExpr node);
+    void visit(FuncExpr node);
 
-    void visit(IndexExpr node);
+    void visit(ArrayExpr node);
 
-    void visit(IntLiteralExpr node);
+    void visit(IntegerConstExpr node);
 
     void visit(LambdaExpr node);
 
-    void visit(MemberExpr node);
+    void visit(MemAccExpr node);
 
     void visit(NewExpr node);
 
-    void visit(NullLiteralExpr node);
+    void visit(NullConstExpr node);
 
     void visit(PrefixExpr node);
 
-    void visit(StringLiteralExpr node);
+    void visit(StringConstExpr node);
 
     void visit(SuffixExpr node);
 
@@ -61,11 +62,14 @@ public interface ASTVisitor {
 
     void visit(VarDefStmt node);
 
-    void visit(VarDefSubStmt node);
-
     void visit(WhileStmt node);
 
+    //todo
     void visit(Type node);
 
     void visit(Stmt node);
+
+    void visit(Def node);
+
+    void visit(Expr node);
 }

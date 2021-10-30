@@ -13,9 +13,9 @@ baseVarDef : Identifier ('=' expression)?;
 suite : '{' statement* '}';
 
 statement
-    : suite                                                   #blockStmt
-    | varDef                                                  #varDefStmt
-    | If '(' condition=expression ')' trueStmt=statement
+    : suite                                                   #block
+    | varDef                                                  #vardefStmt
+    | If '(' expression ')' trueStmt=statement
         (Else falseStmt=statement)?                           #ifStmt
     | For '(' init=expression? ';'
     condition=expression? ';' incr=expression ')'
@@ -30,8 +30,6 @@ statement
 
 expression
     : primary                                               #atomExpr
-    | <assoc=right> expression '=' expression               #assignExpr
-    | <assoc=right> New creator                             #newExpr
     | expression op=('*' | '/' | '%') expression            #binaryExpr
     | expression op=('>>' | '<<') expression                #binaryExpr
     | expression op='&' expression                          #binaryExpr
@@ -46,11 +44,12 @@ expression
      expression                                             #prefixExpr
     | expression op=('++' | '--')                           #suffixExpr
     | expression '.' Identifier                             #memAccExpr
-    | expression '[' expression ']'                         #arrayExpr
-
+    | expression '[' expression ']'                         #indexExpr
     | expression '(' (expression (',' expression)*)? ')'    #funcExpr
-    | LambdaKey ('(' parameterList? ')')* LambdaResult suite
-    '(' (expression (',' expression)*)? ')'                 #lambdaExpr
+    | <assoc=right> expression '=' expression               #assignExpr
+    | <assoc=right> New creator                             #newExpr
+    | LambdaKey ('(' parameterList ')')* LambdaResult suite
+    '{'expression'}' '(' parameterList? ')'                 #lambdaExpr
     ;
 
 primary

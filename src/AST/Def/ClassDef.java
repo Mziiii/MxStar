@@ -16,7 +16,7 @@ public class ClassDef extends Def{
     }
 
     public ClassDef(String identifier,ArrayList<VarDefStmt> variables,ArrayList<FuncDef> functions,Position pos){
-        super(pos);
+        super(identifier,pos);
         classIdentifier=identifier;
         classMember=variables;
         classFunc=functions;
