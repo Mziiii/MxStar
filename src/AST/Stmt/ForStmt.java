@@ -5,10 +5,10 @@ import AST.Expr.Expr;
 import Util.Position;
 
 public class ForStmt extends Stmt {
-    public Expr init, condition, incr;
-    public Stmt loopBody;
+    public Expr condition, incr;
+    public Stmt init,loopBody;
 
-    public ForStmt(Expr _init, Expr _condition, Expr _incr, Stmt _loopBody, Position pos) {
+    public ForStmt(Stmt _init, Expr _condition, Expr _incr, Stmt _loopBody, Position pos) {
         super(pos);
         init = _init;
         condition = _condition;

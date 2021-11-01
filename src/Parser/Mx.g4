@@ -9,6 +9,7 @@ varDef : varType baseVarDef (',' baseVarDef) * ';';
 classDef : Class Identifier '{' (varDef | funcDef)* '}'';';
 parameterList : varType Identifier (',' varType Identifier)*;
 baseVarDef : Identifier ('=' expression)?;
+expressionList : expression (',' expression)*;
 
 suite : '{' statement* '}';
 
@@ -17,8 +18,8 @@ statement
     | varDef                                                  #varDefStmt
     | If '(' condition=expression ')' trueStmt=statement
         (Else falseStmt=statement)?                           #ifStmt
-    | For '(' init=expression? ';'
-    condition=expression? ';' incr=expression ')'
+    | For '(' (initExpr=expression|initDef=varDef)? ';'
+    condition=expression? ';' incr=expression? ')'
     loopBody=statement                                        #forStmt
     | While '(' condition=expression ')' loopBody=statement   #whileStmt
     | Break ';'                                               #breakStmt
@@ -29,9 +30,13 @@ statement
     ;
 
 expression
-    : primary                                               #atomExpr
-    | <assoc=right> expression '=' expression               #assignExpr
+    : '(' expression ')'                                    #parenExpr
+    | Identifier                                            #identifierExpr
+    | literal                                               #constExpr
+    | This                                                  #thisExpr
+
     | <assoc=right> New creator                             #newExpr
+    | <assoc=right> expression '=' expression               #assignExpr
     | expression op=('*' | '/' | '%') expression            #binaryExpr
     | expression op=('>>' | '<<') expression                #binaryExpr
     | expression op='&' expression                          #binaryExpr
@@ -48,21 +53,15 @@ expression
     | expression '.' Identifier                             #memAccExpr
     | expression '[' expression ']'                         #arrayExpr
 
-    | expression '(' (expression (',' expression)*)? ')'    #funcExpr
-    | LambdaKey ('(' parameterList? ')')* LambdaResult suite
+    | expression '(' expressionList? ')'    #funCallExpr
+    | LambdaKey ('(' parameterList? ')')? LambdaResult suite
     '(' (expression (',' expression)*)? ')'                 #lambdaExpr
     ;
 
-primary
-    : '(' expression ')'
-    | Identifier
-    | literal
-    | This
-    ;
-
 creator
-    : basicType ('(' ')')?                     #basicCreator
-    | basicType ('[' expression ']')+('[' ']') #arrayCreator
+    : basicType ('(' ')')?                                               #basicCreator
+    | basicType ('[' expression ']')+ ('[' ']')*                         #arrayCreator
+    | basicType ('[' expression ']')+ ('[' ']')+ ('[' expression ']')+   #errorCreator
     ;
 
 //type
@@ -111,7 +110,7 @@ Plus : '+';
 Minus : '-';
 Mutiply : '*';
 Divide : '/';
-Modulo :'%';
+Modulo : '%';
 
 And : '&';
 Or : '|';

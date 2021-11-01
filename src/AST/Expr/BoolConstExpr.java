@@ -11,7 +11,7 @@ public class BoolConstExpr extends Expr{
     public BoolConstExpr(boolean _boolValue,Position pos) {
         super(pos);
         boolValue=_boolValue;
-        this.type=new ClassType("bool ", 0, Type.TypeList.BOOLEAN, pos);
+        this.type=new ClassType("bool ",pos);
     }
 
     public boolean getBool(){

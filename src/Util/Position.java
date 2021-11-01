@@ -17,24 +17,23 @@ public class Position {
         this.column = token.getCharPositionInLine();
     }
 
-    public Position(TerminalNode terminalNode) {
-        this(terminalNode.getSymbol());
+    public Position(TerminalNode terminal) {
+        this(terminal.getSymbol());
     }
 
     public Position(ParserRuleContext ctx) {
         this(ctx.getStart());
     }
 
-    public int getRow() {
+    public int row() {
         return row;
     }
 
-    public int getColumn() {
+    public int col() {
         return column;
     }
 
-    @Override
     public String toString() {
-        return "(" + row + "," + column + ")";
+        return row + "," + column;
     }
 }

@@ -5,9 +5,6 @@ import AST.Stmt.*;
 import AST.Type.*;
 import AST.Expr.*;
 
-import java.util.ArrayList;
-import java.util.function.IntConsumer;
-
 public interface ASTVisitor {
     //Def
     void visit(Root root);
@@ -23,7 +20,7 @@ public interface ASTVisitor {
 
     void visit(BoolConstExpr node);
 
-    void visit(FuncExpr node);
+    void visit(FunCallExpr node);
 
     void visit(ArrayExpr node);
 
@@ -72,4 +69,6 @@ public interface ASTVisitor {
     void visit(Def node);
 
     void visit(Expr node);
+
+    void visit(ExprList node);
 }

@@ -11,7 +11,7 @@ public class IntegerConstExpr extends Expr{
     public IntegerConstExpr(int _intVal,Position pos) {
         super(pos);
         integerValue=_intVal;
-        this.type=new ClassType("int", 0, Type.TypeList.INT, pos);
+        this.type=new ClassType("int", pos);
     }
 
     public int getIntegerValue() {

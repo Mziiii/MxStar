@@ -5,6 +5,9 @@ import AST.Expr.Expr;
 import AST.Type.Type;
 import Util.Position;
 
+//varDef->VarDefStmt
+//varDef/VarDefStmt->consist of baseVarDef
+//baseVarDef
 public class VarDef extends Def {
     public String varIdentifier;
     public Type varType;

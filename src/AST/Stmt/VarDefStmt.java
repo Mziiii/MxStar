@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class VarDefStmt extends Stmt{
     public ArrayList<VarDef> varList;
 
-    public VarDefStmt(ArrayList<VarDef> _varList,Position pos) {
+    public VarDefStmt(ArrayList<VarDef> _varList, Position pos) {
         super(pos);
         varList=_varList;
     }

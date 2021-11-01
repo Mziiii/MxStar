@@ -6,16 +6,15 @@ import Util.Position;
 public class ArrayType extends Type {
     public int dim = 0;
 
-    public ArrayType(String typeId, TypeList t, int dimension, Position pos) {
-        super(typeId, dimension, t, pos);
-        dim = dimension;
+    public ArrayType(int _dim, String baseType, Position pos) {
+        super(baseType, pos);
+        dim = _dim;
     }
 
-    public ArrayType(Type type, Position pos) {
-        super(type.typeIdentifier, type.dim, type.tType, pos);
-        if (type.tType == TypeList.ARRAY) {
-            dim = ((ArrayType) type).dim + 1;
-            super.dim += 1;
+    public ArrayType(Type baseType, Position pos) {
+        super(baseType.typeIdentifier, pos);
+        if (baseType instanceof ArrayType) {
+            dim = ((ArrayType) baseType).dim + 1;
         } else {
             dim = 1;
         }

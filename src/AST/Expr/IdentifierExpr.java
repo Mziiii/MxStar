@@ -1,15 +1,14 @@
 package AST.Expr;
 
 import AST.ASTVisitor;
-import AST.Type.ClassType;
-import AST.Type.Type;
 import Util.Position;
 
-public class NullConstExpr extends Expr{
+public class IdentifierExpr extends Expr {
+    public String identifier;
 
-    public NullConstExpr(Position pos) {
+    public IdentifierExpr(String _identifier, Position pos) {
         super(pos);
-        this.type=new ClassType("null", pos);
+        identifier = _identifier;
     }
 
     @Override

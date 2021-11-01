@@ -11,7 +11,7 @@ public class StringConstExpr extends Expr {
     public StringConstExpr(String _strVal, Position pos) {
         super(pos);
         stringValue = _strVal;
-        this.type = new ClassType("string", 0, Type.TypeList.STRING, pos);
+        this.type = new ClassType("string", pos);
     }
 
     public String getStringValue() {

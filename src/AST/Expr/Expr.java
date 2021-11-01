@@ -5,9 +5,12 @@ import AST.Type.Type;
 import Util.Position;
 import AST.ASTNode;
 
-public class Expr extends ASTNode{
+public class Expr extends ASTNode {
     public Type type;
-    public Expr(Position pos){
+
+    public boolean isAssignable = false;
+
+    public Expr(Position pos) {
         super(pos);
     }
 

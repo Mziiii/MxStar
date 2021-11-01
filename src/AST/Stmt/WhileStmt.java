@@ -5,8 +5,8 @@ import AST.Expr.Expr;
 import Util.Position;
 
 public class WhileStmt extends Stmt{
-    Expr condition;
-    Stmt loopBody;
+    public Expr condition;
+    public Stmt loopBody;
     public WhileStmt(Expr _condition,Stmt _loopBody,Position pos) {
         super(pos);
         condition=_condition;

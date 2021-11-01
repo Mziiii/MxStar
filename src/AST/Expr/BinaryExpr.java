@@ -4,11 +4,12 @@ import AST.ASTVisitor;
 import Util.Position;
 
 public class BinaryExpr extends Expr {
-    String op;
-    Expr operand1, operand2;
+    public String op;
+    public Expr operand1, operand2;
 
-    public BinaryExpr(Expr _operand1, Expr _operand2, Position pos) {
+    public BinaryExpr(String _op, Expr _operand1, Expr _operand2, Position pos) {
         super(pos);
+        op = _op;
         operand1 = _operand1;
         operand2 = _operand2;
     }

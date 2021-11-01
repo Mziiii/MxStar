@@ -8,12 +8,14 @@ import java.util.ArrayList;
 
 public class NewExpr extends Expr {
     public Type newType;
-    public ArrayList<Expr> exprList;
+    public ArrayList<Expr> sizeList;
+    public int dim;
 
-    public NewExpr(Type _type, ArrayList<Expr> _exprs, Position pos) {
+    public NewExpr(Type _type, ArrayList<Expr> _exprs, int dimension, Position pos) {
         super(pos);
         type = _type;
-        exprList = _exprs;
+        sizeList = _exprs;
+        dim = dimension;
     }
 
     @Override

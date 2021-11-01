@@ -5,7 +5,7 @@ import AST.Expr.Expr;
 import Util.Position;
 
 public class ReturnStmt extends Stmt{
-    Expr returnExpr;
+    public Expr returnExpr;
 
     public ReturnStmt(Expr _returnExpr,Position pos) {
         super(pos);
