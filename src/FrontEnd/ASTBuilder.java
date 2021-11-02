@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ASTBuilder extends MxBaseVisitor<ASTNode> {
-    private MxErrorListener err;
+    private MxErrorListener err=new MxErrorListener();
 
     private GlobalScope globalScope;
 

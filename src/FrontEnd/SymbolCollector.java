@@ -18,7 +18,7 @@ import Util.Scope;
 import java.util.Currency;
 
 public class SymbolCollector implements ASTVisitor {
-    private MxErrorListener err;
+    private MxErrorListener err=new MxErrorListener();
     private GlobalScope globalScope = null;
 
     public SymbolCollector(GlobalScope gScope) {

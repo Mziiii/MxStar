@@ -18,7 +18,7 @@ public class Type extends ASTNode {
         if (this instanceof ClassType && _type instanceof ClassType)
             return this.typeIdentifier.equals(_type.typeIdentifier);
         if (this instanceof ArrayType && _type instanceof ArrayType)
-            return this.typeIdentifier.equals(_type.typeIdentifier);
+            return (this.typeIdentifier.equals(_type.typeIdentifier)) && ((ArrayType) this).dim == ((ArrayType) _type).dim;
         return this instanceof VoidType && _type instanceof VoidType;
     }
 

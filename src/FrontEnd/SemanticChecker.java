@@ -21,7 +21,7 @@ import Util.Scope;
 import java.util.Stack;
 
 public class SemanticChecker implements ASTVisitor {
-    private MxErrorListener err;
+    private MxErrorListener err=new MxErrorListener();
 
     public Scope currentScope = null;
     public GlobalScope globalScope = null;
@@ -75,7 +75,7 @@ public class SemanticChecker implements ASTVisitor {
         funcStack.push(node);
         if (node.funcType != null)
             if (!node.funcType.isEqual(VoidType))
-                if (!globalScope.containsClass(node.funcIdentifier))
+                if (!globalScope.containsClass(node.funcType.typeIdentifier))
                     err.semantic("Function missed its return type : " + node.funcIdentifier, node.pos);
         if (node.parameterList != null)
             node.parameterList.forEach(parameter -> parameter.accept(this));
@@ -91,6 +91,8 @@ public class SemanticChecker implements ASTVisitor {
 
     @Override
     public void visit(AssignExpr node) {
+        node.left.accept(this);
+        node.right.accept(this);
         node.isAssignable = false;
         if (!node.left.isAssignable) err.semantic("Left Value!!", node.pos);
         if (!node.left.type.isEqual(node.right.type))
@@ -109,7 +111,7 @@ public class SemanticChecker implements ASTVisitor {
         node.operand2.accept(this);
         if (!node.operand1.type.isEqual(node.operand2.type))
             if (!node.op.equals("==") && !node.op.equals("!="))
-                err.semantic("Operand types dismatched", node.pos);
+                err.semantic("Operand types mismatched", node.pos);
         Type type = node.operand1.type;
 
         switch (node.op) {
@@ -211,7 +213,7 @@ public class SemanticChecker implements ASTVisitor {
     public void visit(ArrayExpr node) {
         node.arrIdentifier.accept(this);
         if (!(node.arrIdentifier.type instanceof ArrayType))
-            err.semantic("Get Index not from a array type : " + node.arrIdentifier, node.pos);
+            err.semantic("Get Index not from a array type " , node.pos);
         node.index.accept(this);
         if (!node.index.type.isEqual(IntType))
             err.semantic("Array index should be int! " + node.index.type.typeIdentifier, node.pos);
@@ -276,16 +278,16 @@ public class SemanticChecker implements ASTVisitor {
 
     @Override
     public void visit(NewExpr node) {
-        if (!globalScope.containsClass(node.newType.typeIdentifier)) err.semantic("Class doesnt exist", node.pos);
+        if (!globalScope.containsClass(node.newType.typeIdentifier)) err.semantic("Class does not exist", node.pos);
         if (node.sizeList != null) {
             node.sizeList.forEach(size -> {
                 size.accept(this);
                 if (!size.type.isEqual(IntType)) err.semantic("New Expr : size should be int!", node.pos);
             });
-            if (node.dim > 0) node.type = new ArrayType(node.dim, node.newType.typeIdentifier, node.pos);
-            else node.type = new ClassType(node.newType.typeIdentifier, node.pos);
-            node.isAssignable = false;
         }
+        if (node.dim > 0) node.type = new ArrayType(node.dim, node.newType.typeIdentifier, node.pos);
+        else node.type = new ClassType(node.newType.typeIdentifier, node.pos);
+        node.isAssignable = false;
     }
 
     @Override
