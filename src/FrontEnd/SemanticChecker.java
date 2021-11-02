@@ -358,6 +358,13 @@ public class SemanticChecker implements ASTVisitor {
     }
 
     @Override
+    public void visit(ThisExpr node) {
+        if (curClassId == null) err.semantic("This should be used in Claas", node.pos);
+        node.type = new ClassType(curClassId, node.pos);
+        node.isAssignable = false;
+    }
+
+    @Override
     public void visit(BlockStmt node) {
         currentScope = new Scope(currentScope);
         if (node.stmtList != null) node.stmtList.forEach(stmt -> stmt.accept(this));
@@ -470,6 +477,27 @@ public class SemanticChecker implements ASTVisitor {
 
     @Override
     public void visit(Type node) {
+        /*
+        empty
+         */
+    }
+
+    @Override
+    public void visit(VoidType node) {
+        /*
+        empty
+         */
+    }
+
+    @Override
+    public void visit(ClassType node) {
+        /*
+        empty
+         */
+    }
+
+    @Override
+    public void visit(ArrayType node) {
         /*
         empty
          */

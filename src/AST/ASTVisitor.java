@@ -9,6 +9,8 @@ public interface ASTVisitor {
     //Def
     void visit(Root root);
 
+    void visit(Def node);
+
     void visit(ClassDef node);
 
     void visit(FuncDef node);
@@ -23,6 +25,10 @@ public interface ASTVisitor {
     void visit(BinaryExpr node);
 
     void visit(BoolConstExpr node);
+
+    void visit(Expr node);
+
+    void visit(ExprList node);
 
     void visit(FunCallExpr node);
 
@@ -44,7 +50,11 @@ public interface ASTVisitor {
 
     void visit(SuffixExpr node);
 
+    void visit(ThisExpr node);
+
     //Stmt
+    void visit(Stmt node);
+
     void visit(BlockStmt node);
 
     void visit(BreakStmt node);
@@ -65,14 +75,12 @@ public interface ASTVisitor {
 
     void visit(WhileStmt node);
 
-    //todo
+    //type
     void visit(Type node);
 
-    void visit(Stmt node);
+    void visit(VoidType node);
 
-    void visit(Def node);
+    void visit(ClassType node);
 
-    void visit(Expr node);
-
-    void visit(ExprList node);
+    void visit(ArrayType node);
 }

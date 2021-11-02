@@ -8,8 +8,10 @@ import AST.Def.VarDef;
 import AST.Expr.*;
 import AST.Root;
 import AST.Stmt.*;
+import AST.Type.ArrayType;
 import AST.Type.ClassType;
 import AST.Type.Type;
+import AST.Type.VoidType;
 import Util.GlobalScope;
 import Util.MxErrorListener;
 import Util.Position;
@@ -96,7 +98,7 @@ public class SymbolCollector implements ASTVisitor {
 
     @Override
     public void visit(IdentifierExpr node) {
-        
+
     }
 
     @Override
@@ -142,6 +144,11 @@ public class SymbolCollector implements ASTVisitor {
     @Override
     public void visit(SuffixExpr node) {
 
+    }
+
+    @Override
+    public void visit(ThisExpr node) {
+        
     }
 
     @Override
@@ -196,6 +203,21 @@ public class SymbolCollector implements ASTVisitor {
 
     @Override
     public void visit(Type node) {
+
+    }
+
+    @Override
+    public void visit(VoidType node) {
+
+    }
+
+    @Override
+    public void visit(ClassType node) {
+
+    }
+
+    @Override
+    public void visit(ArrayType node) {
 
     }
 
