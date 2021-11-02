@@ -35,6 +35,13 @@ public class Scope {
         else return false;
     }
 
+    public Type getType(String name) {
+        if (variables.containsKey(name)) return variables.get(name);
+        else if (parentScope != null)
+            return parentScope.getType(name);
+        return null;
+    }
+
     public Type getType(String name, boolean lookUpon) {
         if (variables.containsKey(name)) return variables.get(name);
         else if (parentScope != null && lookUpon)

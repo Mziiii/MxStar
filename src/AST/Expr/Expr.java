@@ -6,7 +6,7 @@ import Util.Position;
 import AST.ASTNode;
 
 public class Expr extends ASTNode {
-    public Type type;
+    public Type type = null;
 
     public boolean isAssignable = false;
 

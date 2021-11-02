@@ -21,7 +21,7 @@ import Util.Scope;
 import java.util.Stack;
 
 public class SemanticChecker implements ASTVisitor {
-    private MxErrorListener err=new MxErrorListener();
+    private MxErrorListener err = new MxErrorListener();
 
     public Scope currentScope = null;
     public GlobalScope globalScope = null;
@@ -87,6 +87,20 @@ public class SemanticChecker implements ASTVisitor {
                         err.semantic("The function lost its return stmt : " + node.funcIdentifier, node.pos);
         funcStack.pop();
         currentScope = currentScope.parentScope();
+    }
+
+    @Override
+    public void visit(VarDef node) {
+        if (currentScope.containsVariable(node.identifier) || globalScope.containsClass(node.identifier))
+            err.semantic("Vardef Variable has benn defined : " + node.varIdentifier, node.pos);
+        if (!globalScope.containsClass(node.varType.typeIdentifier)) err.semantic("Var type undefined", node.pos);
+        if (node.initAssign != null) {
+            node.initAssign.accept(this);
+            if (!node.initAssign.type.isEqual(NullType))
+                if (!node.initAssign.type.isEqual(node.varType))
+                    err.semantic("VarDef class type mismatched ", node.pos);
+        }
+        currentScope.defineVariable(node.varIdentifier, node.varType);
     }
 
     @Override
@@ -213,7 +227,7 @@ public class SemanticChecker implements ASTVisitor {
     public void visit(ArrayExpr node) {
         node.arrIdentifier.accept(this);
         if (!(node.arrIdentifier.type instanceof ArrayType))
-            err.semantic("Get Index not from a array type " , node.pos);
+            err.semantic("Get Index not from a array type ", node.pos);
         node.index.accept(this);
         if (!node.index.type.isEqual(IntType))
             err.semantic("Array index should be int! " + node.index.type.typeIdentifier, node.pos);
@@ -221,6 +235,13 @@ public class SemanticChecker implements ASTVisitor {
             node.type = new ClassType(node.arrIdentifier.type.typeIdentifier, node.pos);
         else
             node.type = new ArrayType(((ArrayType) node.arrIdentifier.type).dim - 1, node.arrIdentifier.type.typeIdentifier, node.pos);
+        node.isAssignable = true;
+    }
+
+    @Override
+    public void visit(IdentifierExpr node) {
+        if (currentScope.getType(node.identifier) == null) err.semantic("Variable undefined ", node.pos);
+        node.type = currentScope.getType(node.identifier);
         node.isAssignable = true;
     }
 
@@ -319,6 +340,7 @@ public class SemanticChecker implements ASTVisitor {
                     err.semantic("Prefix operand type error:bool " + node.op, node.pos);
         }
         node.type = node.operand.type;
+        if (node.op.equals("++") || node.op.equals("--")) node.isAssignable = true;
     }
 
     @Override

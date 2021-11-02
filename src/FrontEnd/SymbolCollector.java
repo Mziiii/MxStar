@@ -70,6 +70,11 @@ public class SymbolCollector implements ASTVisitor {
     }
 
     @Override
+    public void visit(VarDef node) {
+
+    }
+
+    @Override
     public void visit(AssignExpr node) {
 
     }
@@ -87,6 +92,11 @@ public class SymbolCollector implements ASTVisitor {
     @Override
     public void visit(FunCallExpr node) {
 
+    }
+
+    @Override
+    public void visit(IdentifierExpr node) {
+        
     }
 
     @Override

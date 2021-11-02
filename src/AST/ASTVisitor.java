@@ -13,7 +13,11 @@ public interface ASTVisitor {
 
     void visit(FuncDef node);
 
+    void visit(VarDef node);
+
     //Expr
+    void visit(ArrayExpr node);
+
     void visit(AssignExpr node);
 
     void visit(BinaryExpr node);
@@ -22,7 +26,7 @@ public interface ASTVisitor {
 
     void visit(FunCallExpr node);
 
-    void visit(ArrayExpr node);
+    void visit(IdentifierExpr node);
 
     void visit(IntegerConstExpr node);
 
