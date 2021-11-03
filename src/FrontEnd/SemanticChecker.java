@@ -92,7 +92,7 @@ public class SemanticChecker implements ASTVisitor {
     @Override
     public void visit(VarDef node) {
         if (currentScope.containsVariable(node.identifier) || globalScope.containsClass(node.identifier))
-            err.semantic("Vardef Variable has benn defined : " + node.varIdentifier, node.pos);
+            err.semantic("VarDef Variable has benn defined : " + node.varIdentifier, node.pos);
         if (!globalScope.containsClass(node.varType.typeIdentifier)) err.semantic("Var type undefined", node.pos);
         if (node.initAssign != null) {
             node.initAssign.accept(this);

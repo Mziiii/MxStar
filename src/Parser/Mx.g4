@@ -36,26 +36,26 @@ expression
     | This                                                  #thisExpr
 
     | <assoc=right> New creator                             #newExpr
-    | <assoc=right> expression '=' expression               #assignExpr
+    | expression '(' expressionList? ')'                    #funCallExpr
+    | expression '.' Identifier                             #memAccExpr
+    | expression '[' expression ']'                         #arrayExpr
+    | expression op=('++' | '--')                           #suffixExpr
+    | <assoc=right> op=('~' | '!' | '++' | '--' | '+' | '-')
+     expression                                             #prefixExpr
     | expression op=('*' | '/' | '%') expression            #binaryExpr
+    | expression op=('+' | '-') expression                  #binaryExpr
     | expression op=('>>' | '<<') expression                #binaryExpr
+    | expression op=('==' | '!=') expression                #binaryExpr
+    | expression op=('<' | '>' | '<=' | '>=') expression    #binaryExpr
     | expression op='&' expression                          #binaryExpr
     | expression op='|' expression                          #binaryExpr
     | expression op='^' expression                          #binaryExpr
     | expression op='&&' expression                         #binaryExpr
     | expression op='||' expression                         #binaryExpr
-    | expression op=('+' | '-') expression                  #binaryExpr
-    | expression op=('==' | '!=') expression                #binaryExpr
-    | expression op=('<' | '>' | '<=' | '>=') expression    #binaryExpr
-    | <assoc=right> op=('~' | '!' | '++' | '--' | '+' | '-')
-     expression                                             #prefixExpr
-    | expression op=('++' | '--')                           #suffixExpr
-    | expression '.' Identifier                             #memAccExpr
-    | expression '[' expression ']'                         #arrayExpr
 
-    | expression '(' expressionList? ')'    #funCallExpr
     | LambdaKey ('(' parameterList? ')')? LambdaResult suite
     '(' (expression (',' expression)*)? ')'                 #lambdaExpr
+    | <assoc=right> expression '=' expression               #assignExpr
     ;
 
 creator

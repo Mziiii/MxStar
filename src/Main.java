@@ -20,10 +20,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         // write your code here
-        String name="src/text.mx";
-        InputStream input= new FileInputStream(name);
+//        String name="src/text.mx";
+//        InputStream input= new FileInputStream(name);
 
-//        InputStream input = System.in;
+        InputStream input = System.in;
 
         try {
             Root ASTRoot;
