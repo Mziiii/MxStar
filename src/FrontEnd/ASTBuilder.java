@@ -82,12 +82,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
         if (ctx.varDef() != null) ctx.varDef().forEach(vardef -> classMember.add((VarDefStmt) visit(vardef)));
         if (ctx.funcDef() != null) ctx.funcDef().forEach(funcdef -> classFunc.add((FuncDef) visit(funcdef)));
         ASTNode classDef = new ClassDef(classIdentifier, classMember, classFunc, new Position(ctx));
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public ASTNode visitParameterList(MxParser.ParameterListContext ctx) {
-        return visitChildren(ctx);
+        return classDef;
     }
 
     @Override
@@ -306,7 +301,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
             for (MxParser.ExpressionContext eCtx : ctx.expression()) exprArrayList.add((Expr) visit(eCtx));
         }
         ASTNode lambdaExpr = new LambdaExpr(parameterList, exprArrayList, blockStmt, new Position(ctx));
-        return visitChildren(ctx);
+        return lambdaExpr;
     }
 
     @Override

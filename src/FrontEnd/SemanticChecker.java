@@ -289,11 +289,12 @@ public class SemanticChecker implements ASTVisitor {
                 node.funcMember = globalScope.classes.get(node.operand.type.typeIdentifier).getFunction(node.member);
                 if (node.funcMember == null)
                     err.semantic("No functions in Class : " + node.operand.type.typeIdentifier, node.pos);
+            } else {
+                node.type = globalScope.classes.get(node.operand.type.typeIdentifier).variables.get(node.member);
+                if (node.type == null)
+                    err.semantic("No variables in Class : " + node.operand.type.typeIdentifier, node.pos);
+                node.isAssignable = true;
             }
-            node.type = globalScope.classes.get(node.operand.type.typeIdentifier).variables.get(node.member);
-            if (node.type == null)
-                err.semantic("No variables in Class : " + node.operand.type.typeIdentifier, node.pos);
-            node.isAssignable = true;
         }
     }
 
@@ -447,6 +448,7 @@ public class SemanticChecker implements ASTVisitor {
                     if (!node.returnExpr.type.isEqual(NullType))
                         err.semantic("Return Stmt type mismatched with the function type  ", node.pos);
             }
+            funcDef.isConstructor = true;
         } else {
             LambdaExpr funcDef = (LambdaExpr) funcStack.peek();
             if (node.returnExpr == null) err.semantic("Return Stmt lambda needs return type", node.pos);

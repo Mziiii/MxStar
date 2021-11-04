@@ -3,9 +3,8 @@ package AST.Type;
 import AST.ASTNode;
 import AST.ASTVisitor;
 import Util.Position;
-import com.sun.jdi.VoidType;
 
-public class Type extends ASTNode {
+public abstract class Type extends ASTNode {
 
     public String typeIdentifier;
 

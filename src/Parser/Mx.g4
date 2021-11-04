@@ -36,8 +36,8 @@ expression
     | This                                                  #thisExpr
 
     | <assoc=right> New creator                             #newExpr
-    | expression '(' expressionList? ')'                    #funCallExpr
     | expression '.' Identifier                             #memAccExpr
+    | expression '(' expressionList? ')'                    #funCallExpr
     | expression '[' expression ']'                         #arrayExpr
     | expression op=('++' | '--')                           #suffixExpr
     | <assoc=right> op=('~' | '!' | '++' | '--' | '+' | '-')
@@ -137,11 +137,6 @@ LambdaKey : '[&]';
 LambdaResult : '->';
 
 
-//identifier
-Identifier
-    : [a-zA-Z] [a-zA-Z_0-9]*
-    ;
-
 //constant
 BoolConstant : 'true' | 'false';
 IntegerConstant : [1-9] [0-9]* | '0' ;
@@ -149,6 +144,11 @@ StringConstant : '"'( ESC | . )*?'"';
 fragment
 ESC : '\\"' | '\\\\' | '\\n';
 NullConstant : 'null';
+
+//identifier
+Identifier
+    : [a-zA-Z] [a-zA-Z_0-9]*
+    ;
 
 //blank
 Whitespace
