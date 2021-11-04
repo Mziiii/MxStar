@@ -258,8 +258,8 @@ public class SemanticChecker implements ASTVisitor {
         funcStack.push(node);
         if (node.parameterList != null) node.parameterList.forEach(parameter -> parameter.accept(this));
         if (node.exprList != null) node.exprList.forEach(expr -> expr.accept(this));
-        if (node.parameterList == null || node.exprList == null) {
-            if (!(node.parameterList == null && node.exprList == null))
+        if (node.parameterList == null || (node.exprList == null || node.exprList.size() == 0)) {
+            if (!(node.parameterList == null && (node.exprList == null || node.exprList.size() == 0)))
                 err.semantic("Lambda parameters wrong", node.pos);
         } else {
             if (node.exprList.size() != node.parameterList.size())
@@ -268,13 +268,13 @@ public class SemanticChecker implements ASTVisitor {
                 if (!node.parameterList.get(i).varType.isEqual(node.exprList.get(i).type))
                     err.semantic("Lambda parameters type wrong", node.pos);
             }
-            node.blockStmt.stmtList.forEach(stmt -> stmt.accept(this));
-            if (node.returnType == null) err.semantic("Lambada needs a return type", node.pos);
-            node.type = node.returnType;
-            node.isAssignable = false;
-            funcStack.pop();
-            currentScope = currentScope.parentScope();
         }
+        node.blockStmt.stmtList.forEach(stmt -> stmt.accept(this));
+        if (node.returnType == null) err.semantic("Lambada needs a return type", node.pos);
+        node.type = node.returnType;
+        node.isAssignable = false;
+        funcStack.pop();
+        currentScope = currentScope.parentScope();
     }
 
     @Override
