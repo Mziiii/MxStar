@@ -226,12 +226,12 @@ public interface MxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMemAccExpr(MxParser.MemAccExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code basicCreator}
+	 * Visit a parse tree produced by the {@code errorCreator}
 	 * labeled alternative in {@link MxParser#creator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBasicCreator(MxParser.BasicCreatorContext ctx);
+	T visitErrorCreator(MxParser.ErrorCreatorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code arrayCreator}
 	 * labeled alternative in {@link MxParser#creator}.
@@ -240,12 +240,12 @@ public interface MxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayCreator(MxParser.ArrayCreatorContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code errorCreator}
+	 * Visit a parse tree produced by the {@code basicCreator}
 	 * labeled alternative in {@link MxParser#creator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitErrorCreator(MxParser.ErrorCreatorContext ctx);
+	T visitBasicCreator(MxParser.BasicCreatorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MxParser#basicType}.
 	 * @param ctx the parse tree

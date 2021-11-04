@@ -400,13 +400,13 @@ public class MxBaseListener implements MxListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBasicCreator(MxParser.BasicCreatorContext ctx) { }
+	@Override public void enterErrorCreator(MxParser.ErrorCreatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBasicCreator(MxParser.BasicCreatorContext ctx) { }
+	@Override public void exitErrorCreator(MxParser.ErrorCreatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -424,13 +424,13 @@ public class MxBaseListener implements MxListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterErrorCreator(MxParser.ErrorCreatorContext ctx) { }
+	@Override public void enterBasicCreator(MxParser.BasicCreatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitErrorCreator(MxParser.ErrorCreatorContext ctx) { }
+	@Override public void exitBasicCreator(MxParser.BasicCreatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

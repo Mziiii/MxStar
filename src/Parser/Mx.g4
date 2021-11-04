@@ -59,9 +59,9 @@ expression
     ;
 
 creator
-    : basicType ('(' ')')?                                               #basicCreator
+    : basicType ('[' expression ']')+ ('[' ']')+ ('[' expression ']')+   #errorCreator
     | basicType ('[' expression ']')+ ('[' ']')*                         #arrayCreator
-    | basicType ('[' expression ']')+ ('[' ']')+ ('[' expression ']')+   #errorCreator
+    | basicType ('(' ')')?                                               #basicCreator
     ;
 
 //type

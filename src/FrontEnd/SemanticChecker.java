@@ -400,9 +400,9 @@ public class SemanticChecker implements ASTVisitor {
             node.init.accept(this);
         }
         if (node.condition != null) {
+            node.condition.accept(this);
             if (!node.condition.type.isEqual(BoolType))
                 err.semantic("Condition cannot be null in For Stmt", node.pos);
-            node.condition.accept(this);
         }
         if (node.incr != null) node.incr.accept(this);
         if (node.loopBody != null) if (node.loopBody instanceof BlockStmt)

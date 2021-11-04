@@ -13,7 +13,7 @@ public class NewExpr extends Expr {
 
     public NewExpr(Type _type, ArrayList<Expr> _exprs, int dimension, Position pos) {
         super(pos);
-        type = _type;
+        newType = _type;
         sizeList = _exprs;
         dim = dimension;
     }
