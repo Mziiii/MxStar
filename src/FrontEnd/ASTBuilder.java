@@ -23,13 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ASTBuilder extends MxBaseVisitor<ASTNode> {
-    private MxErrorListener err=new MxErrorListener();
-
-    private GlobalScope globalScope;
-
-    public ASTBuilder(GlobalScope gScope) {
-        globalScope = gScope;
-    }
+    private MxErrorListener err = new MxErrorListener();
 
     @Override
     public ASTNode visitProgram(MxParser.ProgramContext ctx) {
@@ -226,7 +220,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
                 err.syntax("SuffixExpr op error" + op, new Position(ctx));
         }
         ASTNode suffixExpr = new SuffixExpr(op, (Expr) visit(ctx.expression()), new Position(ctx));
-        return visitChildren(ctx);
+        return suffixExpr;
     }
 
     @Override
@@ -279,7 +273,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
             default:
                 err.syntax("PrefixExpr op error:" + op, new Position(ctx));
         }
-        ASTNode prefixExpr = new PrefixExpr(op, (Expr) visit(ctx.expression()), new Position(ctx));
+        ASTNode prefixExpr = new PrefixExpr(op, (Expr) visit(ctx.operand), new Position(ctx));
         return prefixExpr;
     }
 
@@ -377,8 +371,9 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitFuncType(MxParser.FuncTypeContext ctx) {
-        if (ctx.Void() != null) return new VoidType(new Position(ctx));
-        return visit(ctx.varType());
+        if (ctx.Void() != null)
+            return new VoidType(new Position(ctx));
+        return new ClassType(ctx.getText(), new Position(ctx));
     }
 
     @Override

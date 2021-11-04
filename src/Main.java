@@ -37,7 +37,7 @@ public class Main {
             parser.addErrorListener(new MxErrorListener());
             ParseTree parseTreeRoot = parser.program();
 
-            ASTBuilder astBuilder = new ASTBuilder(gScope);
+            ASTBuilder astBuilder = new ASTBuilder();
             ASTRoot = (Root) astBuilder.visit(parseTreeRoot);
             gScope = new GlobalScope(null);
             ScopeBuilder scopeBuilder = new ScopeBuilder();

@@ -1358,6 +1358,7 @@ public class MxParser extends Parser {
 	}
 	public static class PrefixExprContext extends ExpressionContext {
 		public Token op;
+		public ExpressionContext operand;
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -1625,7 +1626,7 @@ public class MxParser extends Parser {
 					consume();
 				}
 				setState(170);
-				expression(13);
+				((PrefixExprContext)_localctx).operand = expression(13);
 				}
 				break;
 			case LambdaKey:

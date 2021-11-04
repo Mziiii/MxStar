@@ -41,7 +41,7 @@ expression
     | expression '[' expression ']'                         #arrayExpr
     | expression op=('++' | '--')                           #suffixExpr
     | <assoc=right> op=('~' | '!' | '++' | '--' | '+' | '-')
-     expression                                             #prefixExpr
+     operand=expression                                     #prefixExpr
     | expression op=('*' | '/' | '%') expression            #binaryExpr
     | expression op=('+' | '-') expression                  #binaryExpr
     | expression op=('>>' | '<<') expression                #binaryExpr

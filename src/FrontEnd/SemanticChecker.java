@@ -352,6 +352,7 @@ public class SemanticChecker implements ASTVisitor {
 
     @Override
     public void visit(SuffixExpr node) {
+        node.operand.accept(this);
         if (!node.operand.type.isEqual(IntType)) err.semantic("Suffix operand type error : " + node.op, node.pos);
         if (!node.operand.isAssignable) err.semantic("Suffix operand must be assignable : " + node.op, node.pos);
         node.type = node.operand.type;
