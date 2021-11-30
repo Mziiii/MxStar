@@ -8,6 +8,7 @@ public class binary extends statement {
     public register lhs;
     public entity op1, op2;
     public opType op;
+
     public binary(register lhs, entity op1, entity op2, opType op) {
         super();
         this.lhs = lhs;
